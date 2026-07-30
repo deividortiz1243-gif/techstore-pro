@@ -12,7 +12,7 @@
 <div class="barra-scroll" id="barra-scroll"></div>
 
   <!-- ============================================================
-       HEADER — Igual en todas las páginas
+      HEADER — Igual en todas las páginas
        Cambia class="activo" al enlace "Productos"
        ============================================================ -->
   <header class="header">
@@ -23,12 +23,20 @@
     <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav id="nav-menu" class="nav-menu">
-      <a href="index.html">Inicio</a>
-      <a href="productos.html" class="activo">Productos</a>
+n  <nav id="nav-menu" class="nav-menu">
+      <a href="index.html" class="activo">Inicio</a>
+      <a href="productos.html">Productos</a>
       <a href="nosotros.html">Nosotros</a>
       <a href="contacto.html">Contacto</a>
     </nav>
+    <!-- ✏️ S07: botón tema — extremo derecho, fuera del nav -->
+    <div class="header-acciones">
+      <button id="btn-tema" class="btn-tema" aria-label="Cambiar tema">🌙</button>
+      <div class="carrito-badge-contenedor">
+        <span>🛒</span>
+        <span class="carrito-badge" id="carrito-badge">0</span>
+      </div>
+    </div>
   </header>
 
   <main>

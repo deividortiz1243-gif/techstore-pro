@@ -53,8 +53,24 @@
   </header>
   <!-- ============================================================
       MAIN — Contenido único de esta página
-      ============================================================ -->
-  <main>
+    ============================================================ -->
+<main>
+  <section class="seccion-carrito" id="seccion-carrito">
+    <div class="seccion-header">
+      <h2>🛒 Mi carrito</h2>
+      <p id="carrito-resumen">Cargando...</p>
+    </div>
+    
+    <!-- ✏️ La lista de productos se genera con JavaScript -->
+    <div id="lista-carrito"></div>
+    
+    <!-- Botón para vaciar el carrito -->
+    <div class="carrito-acciones">
+      <button id="btn-vaciar" class="btn btn-secundario">🗑️ Vaciar carrito</button>
+      <a href="index.html" class="btn btn-primario">Seguir comprando</a>
+    </div>
+  </section>
+</main>
 
     <!-- --------------------------------------------------------
         HERO — Sección principal de bienvenida
