@@ -1,15 +1,15 @@
 // 1. Importar dependencias
 
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt  = require('bcryptjs');
+const jwt     = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
-const router = express.Router();
+const router  = express.Router();
 
 // 2. POST /api/auth/registro - crear cuenta nueva
 router.post('/registro', async (req, res) => {
   try {
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password, rol } = req.body;
 
     // Verificar que el email no exista ya
     const existe = await Usuario.findOne({ email });
@@ -18,7 +18,7 @@ router.post('/registro', async (req, res) => {
     // Encriptar la contraseña con 10 rondas de bcrypt
     const hash = await bcrypt.hash(password, 10);
     // Guardar el usuario con la contraseña encriptada
-const usuario = await Usuario.create({ nombre, email, password: hash });
+const usuario = await Usuario.create({ nombre, email, password: hash, rol });
 
 res.status(201).json({ mensaje: 'Usuario creado correctamente', id: usuario._id });
   } catch (err) {
@@ -37,9 +37,10 @@ router.post('/login', async (req, res) => {
     // Comparar la contraseña con el hash guardado en Atlas
     const valida = await bcrypt.compare(password, usuario.password);
     if (!valida) return res.status(401).json({ error: 'Email o contraseña incorrectos' });
+    
     // Crear el token JWT - dura 24 horas
     const token = jwt.sign(
-      { id: usuario._id, email: usuario.email },
+      { id: usuario._id, email: usuario.email, rol: usuario.rol },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
