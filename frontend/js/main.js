@@ -185,7 +185,7 @@ async function cargarProductos() {
   try {
     // PASO 1 — Pedir el archivo JSON al servidor
     // await pausa aquí hasta que llegue la respuesta (el sobre)
-    const respuesta = await fetch('data/productos.json');
+    const respuesta = await fetch('http://localhost:3000/api/productos');
 
     // PASO 2 — Leer el contenido del JSON como array JavaScript
     // .json() también es asíncrono → necesita su propio await
@@ -262,13 +262,16 @@ if (modal) {
 
 cargarProductos(); // ejecutar al cargar la página
 
-  botonesVerMas.forEach(function(boton) {
-    boton.addEventListener('click', function() {
-      const tarjeta = boton.closest('.tarjeta');
-      abrirModal(tarjeta);
-    });
-  });
+// 1. Primero seleccionas todos los botones con la clase correspondiente
+const botonesVerMas = document.querySelectorAll('.btn-ver-mas'); // Reemplaza '.btn-ver-mas' por la clase real que usen tus botones en el HTML
 
+// 2. Luego ya puedes recorrerlos sin que dé error
+botonesVerMas.forEach(function(boton) {
+    boton.addEventListener('click', function() {
+        const tarjeta = boton.closest('.tarjeta');
+        abrirModal(tarjeta);
+    });
+});
   btnCerrar.addEventListener('click', function() {
     modal.classList.remove('visible');
   });
