@@ -1,5 +1,5 @@
 // 1. Importar Mongoose
-const mongoose = require('mongoose'); // 👈 ¡Falta esta línea al inicio!
+const mongoose = require('mongoose');
 
 const usuarioSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
@@ -8,8 +8,3 @@ const usuarioSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Usuario', usuarioSchema);
-
-// 3. Exportar el Model}
-
-const Usuario = mongoose.model('Usuario', usuarioSchema);
-module.exports = Usuario;

@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- BARRA SCROLL — S06: div vacío, el CSS lo posiciona y el JS le da el ancho -->
+    <!-- BARRA SCROLL -->
     <div class="barra-scroll" id="barra-scroll"></div>
-    <!-- HEADER — Igual en todas las páginas -->
+
+    <!-- HEADER -->
     <header class="header">
       <div class="header-logo">
         <span class="logo-icono">💻</span>
         <span class="logo-texto">TechStore Pro</span>
       </div>
+      
       <button
         id="menu-toggle"
         class="menu-toggle"
@@ -23,6 +25,7 @@
       >
         <span></span><span></span><span></span>
       </button>
+
       <nav id="nav-menu" class="nav-menu">
         <a href="index.html">Inicio</a>
         <a href="productos.html">Productos</a>
@@ -30,9 +33,16 @@
         <a href="contacto.html">Contacto</a>
         <a href="registro.html" class="activo">Registro</a>
       </nav>
-      <button id="btn-tema" class="btn-tema" aria-label="Cambiar tema">
-        🌙
-      </button>
+
+      <!-- ACCIONES HEADER — Login, Tema y Carrito -->
+      <div class="header-acciones">
+        <a href="login.html" id="nav-login" class="btn-login-header">Login</a>
+        <button id="btn-tema" class="btn-tema" aria-label="Cambiar tema">🌙</button>
+        <div class="carrito-badge-contenedor">
+          <span>🛒</span>
+          <span class="carrito-badge" id="carrito-badge">0</span>
+        </div>
+      </div>
     </header>
 
     <main>
@@ -43,45 +53,42 @@
         <h1 style="margin-bottom: 32px">Crear cuenta</h1>
 
         <form id="form-registro" novalidate>
-          <!-- CAMPO NOMBRE — completo para que veas el patrón -->
+          <!-- CAMPO NOMBRE -->
           <div class="campo">
             <label for="reg-nombre">Nombre completo</label>
             <input type="text" id="reg-nombre" placeholder="Tu nombre" />
             <span class="error" id="error-reg-nombre"></span>
           </div>
 
-          <!-- ✏️ CAMPO EMAIL — construye tú siguiendo el mismo patrón que Nombre -->
-          <!-- label: "Correo electrónico" -->
-          <!-- id del input: reg-email | id del error: error-reg-email -->
-          <!-- type: email | placeholder: correo@ejemplo.com -->
-          <form id="form-registro" novalidate>
-          <!-- CAMPO EMAIL — completo para que veas el patrón -->
+          <!-- CAMPO EMAIL -->
           <div class="campo">
-            <label for="reg-nombre">Correo electrónico</label>
-            <input type="text" id="reg-email" placeholder="Tu correo electrónico" />
+            <label for="reg-email">Correo electrónico</label>
+            <input type="email" id="reg-email" placeholder="correo@ejemplo.com" />
             <span class="error" id="error-reg-email"></span>
           </div>
 
+          <!-- CAMPO CONTRASEÑA -->
           <div class="campo">
-          
             <label for="reg-password">Contraseña</label>
-            <input type="password" id="reg-password" 
-                  placeholder = "Minimo 6 caracteres"
-                  autocomplete="new-password" />
+            <input
+              type="password"
+              id="reg-password"
+              placeholder="Mínimo 6 caracteres"
+              autocomplete="new-password"
+            />
             <span class="error" id="error-reg-password"></span>
           </div>
 
-          <!-- CAMPO DEPARTAMENTO — completo: es un select, no un input -->
+          <!-- CAMPO DEPARTAMENTO -->
           <div class="campo">
             <label for="reg-departamento">Departamento</label>
-            <!-- JavaScript llenará este select con los 33 departamentos -->
             <select id="reg-departamento">
               <option value="">Cargando departamentos...</option>
             </select>
             <span class="error" id="error-reg-departamento"></span>
           </div>
 
-          <!-- ✏️ CAMPO MUNICIPIO — construye tú siguiendo el mismo patrón que Departamento -->
+          <!-- CAMPO MUNICIPIO -->
           <div class="campo">
             <label for="reg-municipio">Municipio</label>
             <select id="reg-municipio" disabled>
@@ -89,12 +96,13 @@
             </select>
             <span class="error" id="error-reg-municipio"></span>
           </div>
-          <button type="submit" class="btn btn-primario" style="width:100%;margin-top:16px;">
+
+          <button type="submit" class="btn btn-primario" style="width:100%; margin-top:16px;">
             Crear cuenta
           </button>
 
-          <div id="registro-exito" class="registro-exito" >
-          ✅ Cuenta creada correctamente. <a href="index.html">Ir a la tienda →</a>
+          <div id="registro-exito" class="registro-exito" style="display: none; margin-top: 16px;">
+            ✅ Cuenta creada correctamente. <a href="index.html">Ir a la tienda →</a>
           </div>
         </form>
 
@@ -102,12 +110,12 @@
       </section>
     </main>
 
-    <!-- FOOTER — Igual en todas las páginas -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-contenido">
         <div class="footer-marca">
           <span class="logo-icono">🏪</span>
-          <span class="logo-texto">Mi Proyecto</span>
+          <span class="logo-texto">TechStore Pro</span>
           <p>Tu tienda de tecnología en línea.</p>
         </div>
         <nav class="footer-nav">
@@ -116,10 +124,11 @@
           <a href="productos.html">Productos</a>
           <a href="nosotros.html">Nosotros</a>
           <a href="contacto.html">Contacto</a>
+          <a href="registro.html">Registro</a>
         </nav>
         <div class="footer-contacto">
           <h4>Contacto</h4>
-          <p>📍 Ciudad, Departamento</p>
+          <p>📍 Garzón, Huila</p>
           <p>📞 300 000 0000</p>
           <p>✉️ info@techstorepro.co</p>
         </div>
@@ -129,7 +138,8 @@
       </div>
     </footer>
 
-      
+    <!-- Scripts necesarios (main.js para la barra de scroll y tema, registro.js para la lógica del formulario) -->
+    <script src="js/main.js"></script>
     <script src="js/registro.js"></script>
   </body>
 </html>
