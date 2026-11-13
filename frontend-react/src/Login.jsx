@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "./AuthContext.jsx";
 import Campo, { claseInput } from "./Campo.jsx";
 
@@ -10,6 +10,8 @@ const FORM_VACIO = { email: "", password: "" };
 function Login() {
     const { login } = useContext(AuthContext);
     const navegar = useNavigate();
+    const ubicacion = useLocation();
+    const aviso = ubicacion.state ? ubicacion.state.aviso : null;
     const [form, setForm] = useState(FORM_VACIO);
     const [errores, setErrores] = useState({});
     const [estado, setEstado] = useState("inactivo");
@@ -70,6 +72,12 @@ function Login() {
                 </h1>
                 <p className="text-gray-700">Entra con tu correo y tu contraseña.</p>
             </section>
+
+            {aviso && (
+                <p role="status" className="bg-gray-50 rounded-card p-4 text-sm font-semibold">
+                    {aviso}
+                </p>
+            )}
 
             <form onSubmit={manejarEnvio} noValidate className="flex flex-col gap-5">
                 <Campo etiqueta="Correo electrónico" nombre="email" error={errores.email}>
