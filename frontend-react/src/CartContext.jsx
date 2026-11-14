@@ -1,38 +1,51 @@
-import {createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
     const [items, setItems] = useState(() => {
-        const guardado = localStorage.getItem("cart-items");
+        const guardado = localStorage.getItem("carrito");
         return guardado ? JSON.parse(guardado) : [];
     });
 
+    // Cada vez que cambia el carrito, se guarda solo
+    useEffect(() => {
+        localStorage.setItem("carrito", JSON.stringify(items));
+    }, [items]);
+
     function agregarAlCarrito(producto) {
-        const nuevo = [...items, producto];
-        setItems(nuevo);
-        localStorage.setItem("carrito", JSON.stringify(nuevo));
+        const existe = items.find((item) => item.id === producto.id);
+        if (existe) {
+            setItems(
+                items.map((item) =>
+                    item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item,
+                ),
+            );
+        } else {
+            setItems([...items, { ...producto, cantidad: 1 }]);
+        }
     }
 
-    function eliminarDelCarrito(productoId) {
-        const nuevo = items.filter((item) => item.id !== productoId);
-        setItems(nuevo);
-        localStorage.setItem("carrito", JSON.stringify(nuevo));
+    function cambiarCantidad(id, cambio) {
+        setItems(
+            items.map((item) =>
+                item.id === id ? { ...item, cantidad: item.cantidad + cambio } : item,
+            ),
+        );
     }
 
-    function quitarDelCArrito(indice) {
-        const nuevo = items.filter((_, i) => i !== indice);
-        setItems(nuevo);
-        localStorage.setItem("carrito", JSON.stringify(nuevo));
+    function quitarDelCarrito(id) {
+        setItems(items.filter((item) => item.id !== id));
     }
 
     function vaciarCarrito() {
         setItems([]);
-        localStorage.removeItem("carrito");
     }
 
     return (
-        <CartContext.Provider value={{ items, agregarAlCarrito, quitarDelCArrito, vaciarCarrito }}>
+        <CartContext.Provider
+            value={{ items, agregarAlCarrito, cambiarCantidad, quitarDelCarrito, vaciarCarrito }}
+        >
             {children}
         </CartContext.Provider>
     );

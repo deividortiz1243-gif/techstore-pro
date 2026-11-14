@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer.jsx";
 import Home from "./Home.jsx";
@@ -8,9 +8,10 @@ import Nosotros from "./Nosotros.jsx";
 import Contacto from "./Contacto.jsx";
 import Login from "./Login.jsx";
 import Registro from "./Registro.jsx";
+import Carrito from "./carrito.jsx";
 import NotFound from "./NotFound.jsx";
 
-function App() {
+function App() {  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -23,6 +24,7 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
+          <Route path="/carrito" element={<Carrito />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
