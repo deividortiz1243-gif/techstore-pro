@@ -1,9 +1,15 @@
 // 1. Importar dependencias
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const Usuario = require('../models/Usuario');
-const router = express.Router();
+const express  = require('express');
+const bcrypt   = require('bcryptjs');
+const jwt      = require('jsonwebtoken');
+const Usuario  = require('../models/Usuario');
+const router   = express.Router();
+
+// Dominios de correo que aceptamos al registrarse
+const dominiosPermitidos = [
+  'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com',
+  'icloud.com', 'me.com', 'mac.com',
+];
 
 // 2. POST /api/auth/registro — crear cuenta nueva
 router.post('/registro', async (req, res) => {
@@ -17,6 +23,11 @@ router.post('/registro', async (req, res) => {
     }
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       return res.status(400).json({ error: 'El correo no es válido' });
+    }
+    // El dominio es lo que va después de la última @
+    const dominio = email.slice(email.lastIndexOf('@') + 1).toLowerCase();
+    if (!dominiosPermitidos.includes(dominio)) {
+      return res.status(400).json({ error: 'Usa un correo de Gmail, Hotmail, Outlook, Yahoo o iCloud' });
     }
     if (!password || password.length < 6) {
       return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres' });

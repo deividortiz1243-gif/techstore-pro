@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Campo, { claseInput } from "./Campo.jsx";
+import Campo, { claseInput } from "../components/Campo.jsx";
 
 const URL_API = "http://localhost:3000/api/auth";
 const URL_COLOMBIA = "https://api-colombia.com/api/v1";
@@ -12,7 +12,13 @@ const FORM_VACIO = {
     confirmar: "",
     departamento: "",
     municipio: "",
-};
+}
+
+// Los mismos dominios que acepta el servidor
+const DOMINIOS_PERMITIDOS = [
+    "gmail.com", "hotmail.com", "outlook.com", "yahoo.com",
+    "icloud.com", "me.com", "mac.com", "soy.sena.edu.co"
+];
 
 function porNombre(a, b) {
     return a.name.localeCompare(b.name);
@@ -72,6 +78,11 @@ function Registro() {
         }
         if (!/^\S+@\S+\.\S+$/.test(form.email)) {
             nuevos.email = "Escribe un correo válido, como nombre@correo.com";
+        } else {
+            const dominio = form.email.slice(form.email.lastIndexOf("@") + 1).toLowerCase();
+            if (!DOMINIOS_PERMITIDOS.includes(dominio)) {
+                nuevos.email = "Usa un correo de Gmail, Hotmail, Outlook, Yahoo o iCloud";
+            }
         }
         if (form.password.length < 6) {
             nuevos.password = "La contraseña debe tener al menos 6 caracteres";
